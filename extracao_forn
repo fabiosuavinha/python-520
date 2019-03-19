@@ -1,0 +1,23 @@
+select  
+   trim(f.nom_fornecedor),
+   b.cod_fornecedor,
+   b.nro_nf,
+   b.cod_serie,
+   b.cod_modelo_nf,
+   b.nro_prot_transf,
+   a.dat_inclusao,
+   c.nro_nf,
+   c.cod_serie,
+   d.dat_emissao
+ FROM protocolo_transf a, nota_trf_forn b , outer (nota_saida_proto c ,nota_fiscal d) , fornecedor_lj f
+where a.cod_estab_orig 		= b.cod_estab_orig
+	and a.nro_prot_transf 	= b.nro_prot_transf
+	and a.cod_estab_orig 	  = c.cod_estab
+	and a.nro_prot_transf 	= c.nro_prot_transf
+	and c.nro_nf 			      = d.nro_nf
+	and c.cod_estab 	    	= d.cod_estab
+	and c.cod_serie	     	  = c.cod_serie
+	and b.cod_fornecedor 	  = f.cod_fornecedor
+	and b.cod_fornecedor    in ('42274696002561','53249017000577')
+	and b.cod_estab 		    = '0' 
+	and a.cod_estab_orig	  = '7006'
